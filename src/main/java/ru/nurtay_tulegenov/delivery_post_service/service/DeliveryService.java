@@ -8,7 +8,6 @@ import ru.nurtay_tulegenov.delivery_post_service.model.DeliveryHistory;
 
 import java.util.List;
 
-@Service
 public interface DeliveryService {
     Delivery registerDelivery(DeliveryDto request);
     Delivery moveDelivery(String postOfficeCode, Long deliveryId);

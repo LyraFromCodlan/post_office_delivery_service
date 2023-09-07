@@ -1,6 +1,5 @@
 package ru.nurtay_tulegenov.delivery_post_service.service.service_implementtion;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nurtay_tulegenov.delivery_post_service.dto.DeliveryDto;
 import ru.nurtay_tulegenov.delivery_post_service.mapper.EntityResponseMapper;
@@ -11,9 +10,14 @@ import ru.nurtay_tulegenov.delivery_post_service.service.DeliveryService;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class DeliveryServiceImp implements DeliveryService {
     private final EntityResponseMapper mapper;
+
+    public DeliveryServiceImp(EntityResponseMapper mapper) {
+        this.mapper = mapper;
+    }
+
     @Override
     public Delivery registerDelivery(DeliveryDto request) {
         return null;
@@ -33,7 +37,6 @@ public class DeliveryServiceImp implements DeliveryService {
     public List<DeliveryHistory> getDeliveryHistory(Long id) {
         return null;
     }
-
     @Override
     public Boolean registerReception(Long id) {
         return null;
