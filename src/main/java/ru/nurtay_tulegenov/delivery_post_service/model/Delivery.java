@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import ru.nurtay_tulegenov.delivery_post_service.enums.DeliveryType;
 
 import java.util.Set;
 
@@ -34,10 +35,4 @@ public class Delivery {
     @ManyToMany(mappedBy = "deliveries",fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     private Set<PostOffice> postOffices;
-    private enum DeliveryType{
-        LETTER,
-        PARCEL,
-        WRAPPER,
-        POSTCARD
-    }
 }

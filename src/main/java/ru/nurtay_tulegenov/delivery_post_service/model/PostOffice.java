@@ -21,6 +21,9 @@ public class PostOffice {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "code", unique = true)
+    private String code;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @JoinTable(

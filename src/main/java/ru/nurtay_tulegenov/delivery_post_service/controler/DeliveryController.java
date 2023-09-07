@@ -10,6 +10,8 @@ import ru.nurtay_tulegenov.delivery_post_service.mapper.EntityResponseMapper;
 import ru.nurtay_tulegenov.delivery_post_service.service.DeliveryService;
 import ru.nurtay_tulegenov.delivery_post_service.service.PostOfficeService;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @CrossOrigin
@@ -34,14 +36,13 @@ public class DeliveryController {
     @PostMapping("register/reception/{id}")
     @ResponseBody
     public Boolean registerReception(@RequestParam("id")Long id){
-
         return deliveryService.registerReception(id);
     }
 
-    @PostMapping("move/delivery")
+    @PostMapping("move/delivery/{post_office_code}/{delivery_id}")
     @ResponseBody
-    public Response moveDelivery(@RequestBody PostOfficeDto dto){
-        return mapper.mapDeliveryToResponse(deliveryService.moveDelivery(dto));
+    public Response moveDelivery(@RequestParam(name = "post_office_code") String postOfficeCode, @RequestParam(name = "delivery_id")Long deliveryId){
+        return mapper.mapDeliveryToResponse(deliveryService.moveDelivery(postOfficeCode, deliveryId));
     }
 
     @GetMapping("info/delivery/{id}")
@@ -49,6 +50,13 @@ public class DeliveryController {
     public Response getDeliveryInfo(@RequestParam("id") Long id){
         return mapper.mapDeliveryToResponse(deliveryService.getDeliveryInfo(id));
     }
+
+    @GetMapping("info/history/{id}")
+    @ResponseBody
+    public List<Response> getDilveryHistory(@RequestParam(name = "id") Long id){
+        return mapper.mapHistoryListToResponseList(deliveryService.getDeliveryHistory(id));
+    }
+
     @GetMapping("test")
     @ResponseBody
     public String getString(){
