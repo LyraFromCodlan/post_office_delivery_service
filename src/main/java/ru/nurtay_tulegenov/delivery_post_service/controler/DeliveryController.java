@@ -1,7 +1,6 @@
 package ru.nurtay_tulegenov.delivery_post_service.controler;
 
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.nurtay_tulegenov.delivery_post_service.dto.DeliveryDto;
@@ -16,12 +15,18 @@ import java.util.List;
 @RestController
 @Slf4j
 @CrossOrigin
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("delivery_service")
 public class DeliveryController {
-    private DeliveryService deliveryService;
-    private PostOfficeService postOfficeService;
-    private EntityResponseMapper mapper;
+    private final DeliveryService deliveryService;
+    private final PostOfficeService postOfficeService;
+    private final EntityResponseMapper mapper;
+
+    public DeliveryController(DeliveryService deliveryService, PostOfficeService postOfficeService, EntityResponseMapper mapper) {
+        this.deliveryService = deliveryService;
+        this.postOfficeService = postOfficeService;
+        this.mapper = mapper;
+    }
 
     @PostMapping("register/post_office")
     @ResponseBody
@@ -55,7 +60,7 @@ public class DeliveryController {
 
     @GetMapping("info/history/{id}")
     @ResponseBody
-    public List<Response> getDilveryHistory(@PathVariable(name = "id") Long id){
+    public List<Response> getDeliveryHistory(@PathVariable(name = "id") Long id){
         return  mapper.mapHistoryListToResponseList(deliveryService.getDeliveryHistory(id));
     }
 
