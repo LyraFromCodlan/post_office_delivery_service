@@ -3,5 +3,7 @@ package ru.nurtay_tulegenov.delivery_post_service.dto;
 import lombok.Data;
 
 @Data
-public class DeliveryRequest {
+public class PostOfficeDto {
+    private String name;
+    private String address;
 }
