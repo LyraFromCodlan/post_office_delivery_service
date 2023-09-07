@@ -21,8 +21,12 @@ public class PostOffice {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "postOffice")
-    @Fetch(FetchMode.SELECT)
-    @Column(name = "delivery_id")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
+    @JoinTable(
+            name = "post_office_deliveries",
+            joinColumns = @JoinColumn(name = "post_office_id"),
+            inverseJoinColumns = @JoinColumn(name = "delivery_id")
+    )
     private Set<Delivery> deliveries;
 }

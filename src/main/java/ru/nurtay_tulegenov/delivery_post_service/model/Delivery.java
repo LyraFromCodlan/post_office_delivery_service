@@ -19,19 +19,21 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;
 
+    @Column(name = "receiver_index")
+    private String receiverIndex;
+
     @Column(name = "address")
-    private String address;
+    private String receiveAddress;
+
+    @Column(name = "receiver_name")
+    private String receiverName;
 
     @Column(name = "is_received")
     Boolean isReceived;
-    @ManyToOne
-    @Fetch(FetchMode.SELECT)
-    @Column(name = "receiver_id")
-    private Receiver receiver;
-    @ManyToOne
-    @Fetch(FetchMode.SELECT)
-    @Column(name = "post_office_id")
-    private PostOffice postOffice;
+
+    @ManyToMany(mappedBy = "deliveries",fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
+    private Set<PostOffice> postOffices;
     private enum DeliveryType{
         LETTER,
         PARCEL,
