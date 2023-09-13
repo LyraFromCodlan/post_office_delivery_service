@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import ru.nurtay_tulegenov.delivery_post_service.enums.Status;
 
 import java.util.Date;
 
@@ -35,10 +36,4 @@ public class DeliveryHistory {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    private enum Status{
-        REGISTERED,
-        TRANSFERRED,
-        COLLECTED
-    }
 }
