@@ -76,7 +76,7 @@ public class DeliveryServiceImp implements DeliveryService {
     public List<DeliveryHistory> getDeliveryHistory(Long id) {
         try{
             Delivery delivery = deliveryRepository.findById(id).get();
-            historyRepository.findAllByDelivery(delivery);
+            return historyRepository.findAllByDelivery(delivery);
         }catch (Exception exception) {
             exception.printStackTrace();
             System.out.println(exception.getMessage());

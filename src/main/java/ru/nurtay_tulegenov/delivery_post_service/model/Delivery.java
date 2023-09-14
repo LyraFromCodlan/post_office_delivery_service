@@ -29,7 +29,7 @@ public class Delivery {
     private String receiverIndex;
 
     @Column(name = "address")
-    private String receiveAddress;
+    private String receiverAddress;
 
     @Column(name = "receiver_name")
     private String receiverName;
