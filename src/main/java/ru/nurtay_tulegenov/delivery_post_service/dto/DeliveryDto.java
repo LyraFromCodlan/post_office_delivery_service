@@ -10,6 +10,5 @@ public class DeliveryDto {
     private String receiveAddress;
     private String receiverName;
     private DeliveryType deliveryType;
-
-    private String PostOfficeCode;
+    private String postOfficeCode;
 }

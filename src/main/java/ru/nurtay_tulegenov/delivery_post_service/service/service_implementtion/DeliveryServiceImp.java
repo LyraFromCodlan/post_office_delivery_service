@@ -35,26 +35,28 @@ public class DeliveryServiceImp implements DeliveryService {
     @Override
     @Transactional
     public Delivery registerDelivery(DeliveryDto request) {
-        Delivery delivery = mapper.mapDeliveryDtoToDelivery(request);
-        PostOffice postOffice = postOfficeRepository.findByCodeIgnoreCase(request.getPostOfficeCode());
-        delivery = deliveryRepository.save(delivery);
-        if (postOffice!=null)
-            delivery.setPostOffices(Arrays.asList(postOffice).stream().collect(Collectors.toSet()));
-        return deliveryRepository.save(delivery);
+        try {
+            Delivery delivery = mapper.mapDeliveryDtoToDelivery(request);
+            PostOffice postOffice = postOfficeRepository.findByCodeIgnoreCase(request.getPostOfficeCode());
+            delivery.setPostOffice(postOffice);
+            return deliveryRepository.save(delivery);
+        }catch (Exception exception){
+            exception.printStackTrace();
+            System.out.println(exception.getMessage());
+        }
+        return null;
     }
 
     @Override
     public Delivery moveDelivery(String postOfficeCode, Long deliveryId) {
         try{
-//            PostOffice postOfficeSender = postOfficeRepository.
-            PostOffice PostOfficeReceiver = postOfficeRepository.findByCodeIgnoreCase(postOfficeCode);
             Delivery delivery = deliveryRepository.findById(deliveryId).get();
-            if (delivery!=null){
-
-            }
-//            return deliveryRepository.save()
+            PostOffice postOfficeReceiver = postOfficeRepository.findByCodeIgnoreCase(postOfficeCode);
+            delivery.setPostOffice(postOfficeReceiver);
+            return deliveryRepository.save(delivery);
         }catch (Exception exception) {
             exception.printStackTrace();
+            System.out.println(exception.getMessage());
         }
         return null;
     }
@@ -65,6 +67,7 @@ public class DeliveryServiceImp implements DeliveryService {
             return deliveryRepository.findById(id).get();
         }catch (Exception exception) {
             exception.printStackTrace();
+            System.out.println(exception.getMessage());
         }
         return null;
     }
@@ -72,18 +75,23 @@ public class DeliveryServiceImp implements DeliveryService {
     @Override
     public List<DeliveryHistory> getDeliveryHistory(Long id) {
         try{
-            
+            Delivery delivery = deliveryRepository.findById(id).get();
+            historyRepository.findAllByDelivery(delivery);
         }catch (Exception exception) {
             exception.printStackTrace();
+            System.out.println(exception.getMessage());
         }
         return null;
     }
     @Override
     public Boolean registerReception(Long id) {
         try{
-            
+            Delivery delivery = deliveryRepository.findById(id).get();
+            delivery.setIsReceived(true);
+            deliveryRepository.save(delivery);
         }catch (Exception exception) {
             exception.printStackTrace();
+            System.out.println(exception.getMessage());
         }
         return null;
     }

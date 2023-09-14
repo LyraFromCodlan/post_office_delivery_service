@@ -29,7 +29,7 @@ public class PostOffice {
     @Column(name = "code", unique = true)
     private String code;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "postOffices")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "postOffice")
     @Fetch(FetchMode.JOIN)
     @Cascade(CascadeType.ALL)
     private Set<Delivery> deliveries;

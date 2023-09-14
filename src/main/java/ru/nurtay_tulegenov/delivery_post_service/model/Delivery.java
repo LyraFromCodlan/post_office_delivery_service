@@ -35,15 +35,13 @@ public class Delivery {
     private String receiverName;
 
     @Column(name = "is_received")
-    Boolean isReceived;
+    Boolean isReceived = false;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     @Fetch(FetchMode.JOIN)
-    @JoinTable(
-            name = "post_office_deliveries",
-            joinColumns = @JoinColumn(name = "delivery_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_office_id")
+    @JoinColumn(
+            name = "post_office_id"
     )
-    private Set<PostOffice> postOffices;
+    private PostOffice postOffice;
 }
