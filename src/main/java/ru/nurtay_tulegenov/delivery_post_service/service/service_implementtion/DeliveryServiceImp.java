@@ -1,6 +1,7 @@
 package ru.nurtay_tulegenov.delivery_post_service.service.service_implementtion;
 
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.nurtay_tulegenov.delivery_post_service.dto.DeliveryDto;
 import ru.nurtay_tulegenov.delivery_post_service.mapper.EntityResponseMapper;
@@ -12,25 +13,15 @@ import ru.nurtay_tulegenov.delivery_post_service.repository.HistoryRepository;
 import ru.nurtay_tulegenov.delivery_post_service.repository.PostOfficeRepository;
 import ru.nurtay_tulegenov.delivery_post_service.service.DeliveryService;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
-//@AllArgsConstructor
+@AllArgsConstructor
 public class DeliveryServiceImp implements DeliveryService {
     private final EntityResponseMapper mapper;
     private final PostOfficeRepository postOfficeRepository;
     private final DeliveryRepository deliveryRepository;
     private final HistoryRepository historyRepository;
-
-    public DeliveryServiceImp(EntityResponseMapper mapper, PostOfficeRepository postOfficeRepository, DeliveryRepository deliveryRepository, HistoryRepository historyRepository) {
-        this.mapper = mapper;
-        this.postOfficeRepository = postOfficeRepository;
-        this.deliveryRepository = deliveryRepository;
-        this.historyRepository = historyRepository;
-    }
 
     @Override
     @Transactional

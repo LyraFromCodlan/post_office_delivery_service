@@ -1,6 +1,7 @@
 package ru.nurtay_tulegenov.delivery_post_service.controler;
 
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.nurtay_tulegenov.delivery_post_service.dto.DeliveryDto;
@@ -15,18 +16,12 @@ import java.util.List;
 @RestController
 @Slf4j
 @CrossOrigin
-//@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("delivery_service")
 public class DeliveryController {
     private final DeliveryService deliveryService;
     private final PostOfficeService postOfficeService;
     private final EntityResponseMapper mapper;
-
-    public DeliveryController(DeliveryService deliveryService, PostOfficeService postOfficeService, EntityResponseMapper mapper) {
-        this.deliveryService = deliveryService;
-        this.postOfficeService = postOfficeService;
-        this.mapper = mapper;
-    }
 
     @PostMapping("register/post_office")
     @ResponseBody
