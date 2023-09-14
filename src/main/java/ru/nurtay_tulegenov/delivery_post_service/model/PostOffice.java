@@ -2,6 +2,8 @@ package ru.nurtay_tulegenov.delivery_post_service.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -27,12 +29,8 @@ public class PostOffice {
     @Column(name = "code", unique = true)
     private String code;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "postOffices")
     @Fetch(FetchMode.JOIN)
-    @JoinTable(
-            name = "post_office_deliveries",
-            joinColumns = @JoinColumn(name = "post_office_id"),
-            inverseJoinColumns = @JoinColumn(name = "delivery_id")
-    )
+    @Cascade(CascadeType.ALL)
     private Set<Delivery> deliveries;
 }

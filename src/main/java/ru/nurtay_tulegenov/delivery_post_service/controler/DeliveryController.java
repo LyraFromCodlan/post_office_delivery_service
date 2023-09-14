@@ -36,7 +36,7 @@ public class DeliveryController {
 
     @PostMapping("register/delivery")
     @ResponseBody
-    public Response registerDelivery(DeliveryDto request){
+    public Response registerDelivery(@RequestBody DeliveryDto request){
         return mapper.mapDeliveryToResponse(deliveryService.registerDelivery(request));
     }
 

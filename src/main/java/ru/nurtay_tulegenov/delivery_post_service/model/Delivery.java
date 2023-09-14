@@ -2,6 +2,8 @@ package ru.nurtay_tulegenov.delivery_post_service.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import ru.nurtay_tulegenov.delivery_post_service.enums.DeliveryType;
@@ -35,7 +37,13 @@ public class Delivery {
     @Column(name = "is_received")
     Boolean isReceived;
 
-    @ManyToMany(mappedBy = "deliveries",fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.ALL})
     @Fetch(FetchMode.JOIN)
+    @JoinTable(
+            name = "post_office_deliveries",
+            joinColumns = @JoinColumn(name = "delivery_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_office_id")
+    )
     private Set<PostOffice> postOffices;
 }
