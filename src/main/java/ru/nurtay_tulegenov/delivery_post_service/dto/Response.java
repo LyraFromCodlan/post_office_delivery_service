@@ -1,11 +1,13 @@
 package ru.nurtay_tulegenov.delivery_post_service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import ru.nurtay_tulegenov.delivery_post_service.enums.DeliveryType;
 
 import java.util.Date;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
     private String deliveryId;
     private String postOfficeId;
