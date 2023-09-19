@@ -1,27 +1,41 @@
 package ru.nurtay_tulegenov.delivery_post_service;
 
-import lombok.AllArgsConstructor;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.junit.runner.Runner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestPropertySource;
+import ru.nurtay_tulegenov.delivery_post_service.controler.DeliveryController;
 import ru.nurtay_tulegenov.delivery_post_service.dto.PostOfficeDto;
+import ru.nurtay_tulegenov.delivery_post_service.dto.Response;
 import ru.nurtay_tulegenov.delivery_post_service.model.PostOffice;
+import ru.nurtay_tulegenov.delivery_post_service.service.DeliveryService;
 import ru.nurtay_tulegenov.delivery_post_service.service.PostOfficeService;
 
-@SpringBootTest
+@RunWith(value = Runner.class)
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.MOCK )
+@AutoConfigureMockMvc
+@TestPropertySource(
+        locations = "classpath:application-integration_test.properties")
 class DeliveryPostServiceApplicationTests {
+    @Autowired
+    DeliveryController deliveryController;
 
     @Test
-    void contextLoads() {
-        PostOffice postOffice = new PostOffice();
-        postOffice.setName("Raccoon city PD");
-        postOffice.setCode("rc_pd");
-        postOffice.setAddress("Bright Avenue");
-        Assert.assertEquals("Raccoon city PD",postOffice.getName());
-        Assert.assertEquals("rc_pd",postOffice.getCode());
-        Assert.assertEquals("Bright Avenue",postOffice.getAddress());
+    void testPostOfficeRegistration(){
+        PostOfficeDto postOfficeDto = new PostOfficeDto();
+        postOfficeDto.setName("Raccoon city PD");
+        postOfficeDto.setCode("rc_pd");
+        postOfficeDto.setAddress("Bright Avenue");
+        Response response = deliveryController.registerPostOffice(postOfficeDto);
+//        Assert.assertNotNull(response.getPostOfficeId());
+        Assert.assertEquals("Raccoon city PD",response.getPostOfficeName());
+        Assert.assertEquals("rc_pd",response.getPostOfficeCode());
+        Assert.assertEquals("Bright Avenue",response.getAddress());
     }
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 public interface EntityResponseMapper {
     @Mapping(source = "name", target = "postOfficeName")
     @Mapping(source = "code", target = "postOfficeCode")
+    @Mapping(source = "id", target = "postOfficeId")
     Response mapPostOfficeToResponse(PostOffice postOffice);
     @Mapping(source = "receiverAddress", target = "address")
     @Mapping(source = "isReceived", target = "deliveryCompleted")
