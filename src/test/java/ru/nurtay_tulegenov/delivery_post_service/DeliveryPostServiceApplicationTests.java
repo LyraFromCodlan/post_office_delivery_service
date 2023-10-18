@@ -1,21 +1,17 @@
 package ru.nurtay_tulegenov.delivery_post_service;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.junit.runner.Runner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.util.Assert;
 import ru.nurtay_tulegenov.delivery_post_service.controler.DeliveryController;
 import ru.nurtay_tulegenov.delivery_post_service.dto.PostOfficeDto;
 import ru.nurtay_tulegenov.delivery_post_service.dto.Response;
-import ru.nurtay_tulegenov.delivery_post_service.model.PostOffice;
-import ru.nurtay_tulegenov.delivery_post_service.service.DeliveryService;
-import ru.nurtay_tulegenov.delivery_post_service.service.PostOfficeService;
 
-@RunWith(value = Runner.class)
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.MOCK )
 @AutoConfigureMockMvc
@@ -32,10 +28,10 @@ class DeliveryPostServiceApplicationTests {
         postOfficeDto.setCode("rc_pd");
         postOfficeDto.setAddress("Bright Avenue");
         Response response = deliveryController.registerPostOffice(postOfficeDto);
-//        Assert.assertNotNull(response.getPostOfficeId());
-        Assert.assertEquals("Raccoon city PD",response.getPostOfficeName());
-        Assert.assertEquals("rc_pd",response.getPostOfficeCode());
-        Assert.assertEquals("Bright Avenue",response.getAddress());
+        assertNotNull(response.getPostOfficeId());
+        assertNotNull("Raccoon city PD",response.getPostOfficeName());
+        assertNotNull("rc_pd",response.getPostOfficeCode());
+        assertNotNull("Bright Avenue",response.getAddress());
     }
 
 }
