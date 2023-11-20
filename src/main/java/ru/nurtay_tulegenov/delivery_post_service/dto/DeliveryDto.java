@@ -1,13 +1,16 @@
 package ru.nurtay_tulegenov.delivery_post_service.dto;
 
-import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.nurtay_tulegenov.delivery_post_service.enums.DeliveryType;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeliveryDto {
     private String receiverIndex;
-    private String receiveAddress;
+    private String receiverAddress;
     private String receiverName;
     private DeliveryType deliveryType;
     private String postOfficeCode;

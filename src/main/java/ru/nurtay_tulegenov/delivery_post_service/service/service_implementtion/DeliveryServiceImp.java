@@ -1,9 +1,12 @@
 package ru.nurtay_tulegenov.delivery_post_service.service.service_implementtion;
 
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.nurtay_tulegenov.delivery_post_service.dto.DeliveryDto;
+import ru.nurtay_tulegenov.delivery_post_service.enums.DeliveryType;
 import ru.nurtay_tulegenov.delivery_post_service.mapper.EntityResponseMapper;
 import ru.nurtay_tulegenov.delivery_post_service.model.Delivery;
 import ru.nurtay_tulegenov.delivery_post_service.model.DeliveryHistory;
@@ -85,5 +88,19 @@ public class DeliveryServiceImp implements DeliveryService {
             System.out.println(exception.getMessage());
         }
         return null;
+    }
+
+    private Specification<Delivery> getPredicate(){
+        return (root, query, criteriaBuilder) -> {
+            return (Predicate) query.where(getPostOffice(new PostOffice())
+                    .or(getDeliveryType()).toPredicate(root,query,criteriaBuilder));
+        };
+    }
+    private Specification<Delivery> getPostOffice(PostOffice postOffice){
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("postOffice"),postOffice));
+    }
+
+    private Specification<Delivery> getDeliveryType(){
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("deliveryType"), DeliveryType.PARCEL);
     }
 }
